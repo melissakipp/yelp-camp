@@ -4,6 +4,7 @@ services:
   nodejs:
     image: nodejs_mongo_docker
     build: .
+    user: node
     environment:
       NODE_ENV: production
     ports:
