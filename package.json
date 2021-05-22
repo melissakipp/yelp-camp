@@ -5,11 +5,25 @@
   "main": "app.js",
   "scripts": {
     "start:express": "node ./app.js",
-    "start": "nodemon ./app.js --legacy-watch",
+    "start": "nodemon -L ./app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "nodemonConfig": {
+    "restartable": "rs",
+    "ignore": [
+      ".git",
+      "node_modules/**/node_modules"
+    ],
+    "verbose": true,
+    "execMap": {
+      "js": "node --harmony"
+    },
+    "legacyWatch": true,
+    "ext": "ejs, js, css"
   },
   "keywords": [
     "docker",
+    "ejs",
     "express",
     "mongoose",
     "nodemon"
