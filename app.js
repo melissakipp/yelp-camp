@@ -11,7 +11,7 @@ const methodOverride = require("method-override");
 const campgrounds = require("./routes/campgrounds");
 const reviews = require("./routes/reviews");
 
-mongoose.connect("mongodb://localhost:27017/yelp-camp", {
+mongoose.connect("mongodb://mongodb:27017/yelp-camp", {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
@@ -35,6 +35,7 @@ app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")))
 
 const sessionConfig = {
+    // This 
     secret: "thisshouldbeabettersecret!",
     resave: false,
     saveUninitialized: true,
