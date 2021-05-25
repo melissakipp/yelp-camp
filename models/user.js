@@ -3,10 +3,18 @@ const Schema = mongoose.Schema;
 const passportLocalMongoose = require('passport-local-mongoose');
 
 const UserSchema = new Schema({
-    email: {
+    // email: {
+    //     type: String,
+    //     required: true,
+    //     unique: true
+    // }
+        email: {
         type: String,
-        required: true,
-        unique: true
+        unique:true,
+        required: 'Please enter your email',
+        trim: true,
+        lowercase:true
+        // validate: [{ validator: value => isEmail(value), msg: 'Invalid email.' }]
     }
 });
 
