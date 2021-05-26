@@ -21,7 +21,7 @@ const sample = array => array[Math.floor(Math.random() * array.length)];
 const seedDB = async () => {
     try {
         await Campground.deleteMany({});
-            for (let i = 0; i < 50; i++) {
+            for (let i = 0; i < 300; i++) {
             const random1000 = Math.floor(Math.random() * 1000);
             const price = Math.floor(Math.random() * 20) + 10;
             const camp = new Campground({
@@ -29,20 +29,22 @@ const seedDB = async () => {
                 author: '60abbd47a1b89c007d4fe9fe',
                 location: `${cities[random1000].city}, ${cities[random1000].state}`,
                 title: `${sample(descriptors)} ${sample(places)}`,
-                // image: 'https://source.unsplash.com/collection/482351',
                 description: 'Street art scenester edison bulb, letterpress squid vice farm-to-table hoodie chartreuse la croix trust fund kale chips single-origin coffee.',
                 price,
                 geometry: {
                     type: "Point",
-                    coordinates: [-113.1331, 47.0202]
+                    coordinates: [
+                        cities[random1000].longitude,
+                        cities[random1000].latitude,
+                    ]
                 },
                 image: [
                     {
-                        url: 'https://res.cloudinary.com/douqbebwk/image/upload/v1600060601/YelpCamp/ahfnenvca4tha00h2ubt.png',
+                        url: 'https://res.cloudinary.com/portfolio-mjk/image/upload/v1621973015/samples/animals/three-dogs.jpg',
                         filename: 'YelpCamp/ahfnenvca4tha00h2ubt'
                     },
                     {
-                        url: 'https://res.cloudinary.com/douqbebwk/image/upload/v1600060601/YelpCamp/ruyoaxgf72nzpi4y6cdi.png',
+                        url: 'https://res.cloudinary.com/portfolio-mjk/image/upload/v1621973015/samples/animals/three-dogs.jpg',
                         filename: 'YelpCamp/ruyoaxgf72nzpi4y6cdi'
                     }
                 ]
