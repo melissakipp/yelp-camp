@@ -1,7 +1,7 @@
-// if(process.env.NODE_ENV !== "production") {
-//     require('dotenv').config();
-// }
-require('dotenv').config();
+if(process.env.NODE_ENV !== "production") {
+    require('dotenv').config();
+}
+// require('dotenv').config();
 
 
 const express = require('express');
@@ -25,7 +25,8 @@ const campgroundRoutes = require('./routes/campgrounds');
 const reviewRoutes = require('./routes/reviews');
 
 // const dbUrl = process.env.DB_URL;
-const dbUrl = 'mongodb://mongodb:27017/yelp-camp';
+// const dbUrl = 'mongodb://mongodb:27017/yelp-camp';
+const dbUrl = process.env.DB_URL || 'mongodb://mongodb:27017/yelp-camp';
 
 // mongoose.connect('mongodb://mongodb:27017/yelp-camp', {
 // mongoose.connect(dbUrl, {
@@ -55,9 +56,11 @@ app.use(mongoSanitize({
     replaceWith: '_'
 }))
 
+const secret = process.env.SECRET || 'thisshouldbeabettersecret!';
+
 const store = new MongoDBStore ({
     url: dbUrl,
-    secret: 'thisshouldbeabettersecret!',
+    secret,
     touchAfter: 24 * 60 * 60 // time period in seconds
 });
 
@@ -68,7 +71,7 @@ store.on('error', function (e) {
 const sessionConfig = {
     store,
     name: 'bootcamp',
-    secret: 'thisshouldbeabettersecret!',
+    secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
