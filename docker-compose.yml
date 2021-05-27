@@ -5,8 +5,8 @@ services:
     image: nodejs_mongo_docker
     build: .
     user: node
-    # environment:
-    #   NODE_ENV: production
+    environment:
+      NODE_ENV: production
     ports:
       - 3000:3000
     volumes:

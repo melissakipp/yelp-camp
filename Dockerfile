@@ -1,5 +1,5 @@
 FROM node:14.16.1-alpine3.10
-# ENV NODE_ENV production
+ENV NODE_ENV production
 WORKDIR /usr/src/app
 RUN npm install -g nodemon 
 COPY ["package*.json", "./"]
