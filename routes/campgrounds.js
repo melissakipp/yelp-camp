@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+
 const campgrounds = require('../controllers/campgrounds');
 const catchAsync = require('../utils/catchAsync');
 const { isLoggedIn, isAuthor, validateCampground } = require('../middleware');
@@ -7,7 +8,10 @@ const multer = require('multer');
 const { storage } = require('../cloudinary');
 const upload = multer({ storage });
 
-const Campground = require('../models/campground');
+// Error: Cannot create a client without an access token
+// Object.<anonymous> (/usr/src/app/controllers/campgrounds.js:4:18)
+// Object.<anonymous> (/usr/src/app/routes/campgrounds.js:3:21)
+
 
 router.route('/')
     .get(catchAsync(campgrounds.index))

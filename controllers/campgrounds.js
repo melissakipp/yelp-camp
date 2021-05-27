@@ -1,10 +1,13 @@
 const Campground = require('../models/campground');
-const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
-const mapBoxToken = process.env.MAPBOX_TOKEN;
-const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 const { cloudinary } = require('../cloudinary');
 
+const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
+const mapBoxToken = process.env.MAPBOX_TOKEN;
+const geocoderClient = mbxGeocoding({ accessToken: mapBoxToken });
+
+// Error: Cannot create a client without an access token
 // Object.<anonymous> (/usr/src/app/controllers/campgrounds.js:4:18)
+// Object.<anonymous> (/usr/src/app/routes/campgrounds.js:3:21)
 
 module.exports.index = async (req, res) => {
     const campgrounds = await Campground.find({}).populate('popupText');
@@ -16,7 +19,7 @@ module.exports.renderNewForm = (req, res) => {
 }
 
 module.exports.createCampground = async (req, res, next) => {
-    const geoData = await geocoder.forwardGeocode({
+    const geoData = await geocoderClient.forwardGeocode({
         query: req.body.campground.location,
         limit: 1
     }).send()
@@ -25,7 +28,6 @@ module.exports.createCampground = async (req, res, next) => {
     campground.images = req.files.map(f => ({ url: f.path, filename: f.filename }));
     campground.author = req.user._id;
     await campground.save();
-    console.log(campground);
     req.flash('success', 'Successfully made a new campground!');
     res.redirect(`/campgrounds/${campground._id}`)
 }
